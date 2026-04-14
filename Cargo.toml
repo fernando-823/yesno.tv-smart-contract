@@ -1,0 +1,26 @@
+[workspace]
+members = [
+    "programs/*"
+]
+resolver = "2"
+
+# ── Compatibility patch ────────────────────────────────────────────────────────
+# cargo-build-sbf bundles Cargo 1.84.0 which cannot parse Cargo.toml files that
+# declare `edition = "2024"`.  toml_datetime 1.1.0 (pulled in transitively by
+# proc-macro-crate 3.5.0 → toml_edit 0.25) uses that edition.  The patch below
+# provides a local copy with edition = "2021"; the source code is identical.
+[patch.crates-io]
+toml_datetime     = { path = "patches/toml_datetime" }
+constant_time_eq  = { path = "patches/constant_time_eq" }
+toml_parser       = { path = "patches/toml_parser" }
+toml_edit         = { path = "patches/toml_edit_0_25" }
+blake3            = { path = "patches/blake3" }
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1
