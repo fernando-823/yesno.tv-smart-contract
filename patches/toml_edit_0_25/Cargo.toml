@@ -1,0 +1,60 @@
+[package]
+name = "toml_edit"
+version = "0.25.8+spec-1.1.0"
+edition = "2021"
+rust-version = "1.82"
+description = "Yet another format-preserving TOML parser."
+readme = "README.md"
+keywords = ["encoding", "toml"]
+categories = ["encoding", "parser-implementations", "parsing", "config"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/toml-rs/toml"
+
+[features]
+default = ["parse", "display"]
+display = ["dep:toml_writer"]
+parse = ["dep:toml_parser", "dep:winnow"]
+serde = ["dep:serde_core", "toml_datetime/serde", "dep:serde_spanned"]
+unbounded = []
+debug = ["toml_parser?/debug", "dep:anstream", "dep:anstyle", "display"]
+
+[lib]
+name = "toml_edit"
+path = "src/lib.rs"
+
+[dependencies.indexmap]
+version = "2.0.0"
+features = ["std"]
+
+[dependencies.toml_datetime]
+version = "1.1.0"
+
+[dependencies.toml_parser]
+version = "1.1.0"
+optional = true
+
+[dependencies.toml_writer]
+version = "1.1.0"
+optional = true
+
+[dependencies.winnow]
+version = "1.0.0"
+optional = true
+
+[dependencies.serde_core]
+package = "serde"
+version = "1.0.228"
+optional = true
+
+[dependencies.serde_spanned]
+version = "1.1.0"
+features = ["serde"]
+optional = true
+
+[dependencies.anstream]
+version = "1.0.0"
+optional = true
+
+[dependencies.anstyle]
+version = "1.0.14"
+optional = true
