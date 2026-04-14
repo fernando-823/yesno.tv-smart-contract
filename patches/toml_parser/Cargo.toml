@@ -1,0 +1,34 @@
+[package]
+name = "toml_parser"
+version = "1.1.0+spec-1.1.0"
+edition = "2021"
+rust-version = "1.82"
+description = "Yet another format-preserving TOML parser."
+categories = ["encoding", "parser-implementations", "parsing", "config"]
+keywords = ["encoding", "toml", "no_std"]
+repository = "https://github.com/toml-rs/toml"
+license = "MIT OR Apache-2.0"
+
+[features]
+default = ["std"]
+alloc = []
+std = ["alloc"]
+simd = ["winnow/simd"]
+unsafe = []
+debug = ["std", "dep:anstream", "dep:anstyle"]
+
+[lib]
+name = "toml_parser"
+path = "src/lib.rs"
+
+[dependencies.anstream]
+version = "0.6.20"
+optional = true
+
+[dependencies.anstyle]
+version = "1.0.11"
+optional = true
+
+[dependencies.winnow]
+version = "1.0.0"
+default-features = false
